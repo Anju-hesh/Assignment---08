@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> P O S </title>
+    <link rel="stylesheet" href="/css/Customer.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/Item.css">
+    <link rel="stylesheet" href="/css/Order.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
+
+</head>
+<body>
+        <!-- ======================================= Hero Page ============================================== -->
+
+    <section id="home_section">
+        <header class="header-bar">
+            <div class="container">
+                <h1> Home </h1>
+                <div class="navItems">
+                    <nav class="navBar" id="homeNav">
+                        <a href="#home_section">Home</a>
+                        <a href="#customer_section">Customer</a>
+                        <a href="#item_section">Item</a>
+                        <a href="#order_section">Orders</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <div class="hero-container">
+            
+            <h1 id="welcome">Welcome to Digala Food City </h1>
+            <p>Efficiently manage your orders, customers, and inventory in one place.</p>
+            <a href="#customer_section" class="home-btn"> Customer </a>
+            <hr>
+            <a href="#item_section" class="home-btn"> Item </a>
+            <hr>
+            <a href="#order_section" class="home-btn"> Order</a>
+          </div>
+
+          <footer class="footer">
+            <div class="container">
+              <p>&copy; 2025 OrderSystems. All rights reserved.</p>
+              <p class="creatBy">Created by <span class="creator"> Digala Food City </span></p>
+              <div class="social-links">
+                <a href="#" target="_blank">Facebook</a>
+                <a href="#" target="_blank">Twitter</a>
+                <a href="#" target="_blank">LinkedIn</a>
+              </div>
+            </div>
+          </footer>
+
+
+    </section>
+
+        <!-- ======================================== CUSTOMER FORM =============================================== -->
+
+    <section id="customer_section">
+        <header class="header-bar">
+            <div class="container">
+                <h1>Customer Manage</h1>
+                <div class="navItems">
+                    <nav class="navBar" id="customerNav">
+                        <a href="#home_section">Home</a>
+                        <a href="#customer_section">Customer</a>
+                        <a href="#item_section">Item</a>
+                        <a href="#order_section">Orders</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+    <div class="main-content">
+        <div class="form-section">
+            <h2>Customer Registraion</h2>
+            <form id="customerForm">
+                <div class="form-group">
+                    <label for="customerId">Customer ID</label>
+                    <input type="text" id="customerId" class="form-control" readonly>
+                    <span class="error" id="customerIdError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerName">Customer Name</label>
+                    <input type="text" id="customerName" class="form-control">
+                    <span class="error" id="customerNameError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerAddress">Customer Address</label>
+                    <input type="text" id="customerAddress" class="form-control">
+                    <span class="error" id="customerAddressError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerSalary">Customer Salary</label>
+                    <input type="text" id="customerSalary" class="form-control">
+                    <span class="error" id="customerSalaryError"></span>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" id="saveCustomer" class="btn btn-primary">Save Customer</button>
+                    <button type="button" id="removeCustomer" class="btn btn-danger">Remove</button>
+                    <button type="button" id="updateCustomer" class="btn btn-warning">Update</button>
+                    <button type="button" id="getAllCustomers" class="btn btn-success">Get All</button>
+                    <button type="button" id="clearCustomerForm" class="btn btn-secondary">Clear All</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="table-section">
+            <table class="customer-table">
+                <table class="customer-table">
+                    <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Customer Name</th>
+                            <th>Customer Address</th>
+                            <th>Customer Salary</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_body">
+                        <tr>
+                            <td>C001</td>
+                            <td>Anjana Heshan</td>
+                            <td>Elpitiya</td>
+                            <td>400,000</td>
+                        </tr>
+                        <tr>
+                            <td>C002</td>
+                            <td>Tharusha Sandaruwan</td>
+                            <td>Ella</td>
+                            <td>500,000</td>
+                        </tr>
+                        <tr>
+                            <td>C003</td>
+                            <td>Chathura lakshan</td>
+                            <td>kurudugaha</td>
+                            <td>450,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+        </div>
+    </div>
+</section>
+
+        <!-- ======================================== ITEM FORM =============================================== --> 
+
+        <section id="item_section">
+            <header class="header-bar">
+                <div class="container">
+                    <h1> Item Manage </h1>
+                    <div class="navItems">
+                        <nav class="navBar" id="itemNav">
+                            <a href="#home_section">Home</a>
+                            <a href="#customer_section">Customer</a>
+                            <a href="#item_section">Item</a>
+                            <a href="#order_section">Orders</a>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+            <div class="item_content">
+                <div class="item_form_section">
+                    <h2> Item Form </h2>
+                    <form id="item_form">
+
+                        <div>
+                            <div class="item_form-group">
+                                <label for="itemCode"> Item Code </label>
+                                <input type="text" id="itemCode" class="item_form-control" readonly>
+                                <span class="error" id="itemCodeError"></span>
+                            </div>
+
+                            <div class="item_form-group">
+                                <label for="itemName"> Item Name </label>
+                                <input type="text" id="itemName" class="item_form-control" minlength="5" maxlength="20">
+                                <span class="error" id="itemNameError"></span>
+                            </div>
+
+                            <div class="item_form-group">
+                                <label for="itemQty"> Item Qty </label>
+                                <input type="number" id="itemQty" class="item_form-control">
+                                <span class="error" id="itemQtyError"></span>
+                            </div>
+
+                            <div class="item_form-group">
+                                <label for="itemPrice"> Item Price </label>
+                                <input type="text" id="itemPrice" class="item_form-control">
+                                <span class="error" id="itemPriceError"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="item_button-group">
+                            <button type="button" id="addItem" class="ItemBtn itemBtn-primary"> Add Item </button>
+                            <button type="button" id="removeItem" class="ItemBtn itemBtn-danger">Remove</button>
+                            <button type="button" id="updateItem" class="ItemBtn itemBtn-warning">Update</button>
+                            <button type="button" id="getAllItem" class="ItemBtn itemBtn-success">Get All</button>
+                            <button type="button" id="clearItemForm" class="ItemBtn itemBtn-secondary">Clear All</button>
+                        </div>
+
+                    </form> 
+                </div>
+                <div class="item_table-section">
+                    <table class="item-table">
+                        <thead>
+                            <tr>
+                                <th>Item Code</th>
+                                <th>Item Name</th>
+                                <th>Item Qty</th>
+                                <th>Item Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="item_table_body">
+                            <!-- <tr>
+                                <td>I001</td>
+                                <td>Item A</td>
+                                <td>10</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>I002</td>
+                                <td>Item B</td>
+                                <td>20</td>
+                                <td>150</td>
+                            </tr>
+                            <tr>
+                                <td>I003</td>
+                                <td>Item C</td>
+                                <td>15</td>
+                                <td>200</td>
+                            </tr> -->
+                        </tbody>
+                    </table>                    
+                </div>
+            </div>
+
+        </section>
+
+            <!-- ======================================== Order FORM =============================================== --> 
+
+        <section id="order_section">
+            <header class="header-bar">
+                <div class="container">
+                    <h1> Order Manage </h1>
+                    <div class="navItems">
+                        <nav class="navBar" id="orderNav">
+                            <a href="#home_section">Home</a>
+                            <a href="#customer_section">Customer</a>
+                            <a href="#item_section">Item</a>
+                            <a href="#order_section">Orders</a>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        
+            <div class="ordeContainer">
+                <div class="invoice-container">
+                    <div class="section">
+                        <div class="section-header">
+                            <h2>Invoice Details</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="orderID"> Order ID :</label>
+                                    <input type="text" id="orderID" class="form-control" >
+                                    <span class="error" id="orderIdError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date">Date :</label>
+                                    <div class="date-input">
+                                        <input type="text" id="date" class="form-control" placeholder="mm/dd/yyyy">
+                                        <button type="button" id="calendarIcon" class="calendar-icon">📅</button>
+                                        <span class="error" id="dateError"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="customer">Customer :</label>
+                                    <select id="select-customer" class="form-control">
+                                        <option value="">Select Customer</option>
+                                    </select>
+                                    <span class="error" id="selectCustomerError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="customerID">Customer ID</label>
+                                    <input type="text" id="Oreder_customerID" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name"> Name :</label>
+                                    <input type="text" id="oreder_customerName" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="salary"> Salary :</label>
+                                    <input type="text" id="order_customerSalary" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="address"> Address :</label>
+                                    <input type="text" id="order_customerAddress" class="form-control" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="section">
+                        <div class="section-header">
+                            <h2>Item Select</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="item"> Item : </label>
+                                    <select id="select-item" class="form-control">
+                                        <option value="">Select Item Code</option>
+                                    </select>
+                                    <span class="error" id="selectItemError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="itemCode">Item Code : </label>
+                                    <input type="text" id="order_itemCode" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="itemName"> Item Name : </label>
+                                    <input type="text" id="order_itemName" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="price"> Price : </label>
+                                    <input type="text" id="order_itemPrice" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="qtyOnHand"> QtyOnH : </label>
+                                    <input type="text" id="order_qtyOnHand" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="orderQuantity"> Order Quantity : </label>
+                                    <input type="number" id="orderQuantity" class="form-control">
+                                    <span class="error" id="orderQuantityError"></span>
+                                </div>
+                            </div>
+                            <div class="form-row button-row">
+                                <button id="addItemBtn" class="btn btn-danger"> Add Item </button>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="section total-section">
+                        <div class="total-content">
+                            <h2 class="total"> Total : <span id="total"> 00.0 </span> Rs/= </h2>
+                            <h3 class="subtotal"> SubTotal : <span id="subtotal"> 00.0 </span> Rs/= </h3>
+        
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cash">Cash</label>
+                                    <input type="number" id="cash" class="form-control">
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label for="discount">Discount</label>
+                                    <input type="number" id="discount" class="form-control">
+                                </div> -->
+                                <div>
+                                    <label for="discountPercentage">Discount</label>
+                                    <input type="number" id="discount" class="form-control" min="0" max="100" step="1">
+                                </div>
+                                </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="balance">Balance</label>
+                                    <input type="text" id="balance" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row button-row">
+                                <button id="purchaseBtn" class="btn btn-success">Purchase</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="order-table-container">
+                    <table class="order-table">
+                        <thead>
+                            <tr>
+                                <th>Item Code</th>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <script>
+           
+            const dateInput = document.getElementById("date");
+            const calendarIcon = document.getElementById("calendarIcon");
+        
+            const flatpickrInstance = flatpickr(dateInput, {
+                dateFormat: "m-d-Y", 
+                // defaultDate: "today",
+                allowInput: true, 
+            });
+        
+            calendarIcon.addEventListener("click", () => {
+                flatpickrInstance.open();
+            });
+            
+        </script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="/controllers/CustomerControler.js"></script>
+    <script src="/controllers/IndexController.js"></script>
+    <script src="/controllers/ItemController.js"></script>
+    <script src="/controllers/OrderController.js"></script>
+    <script src="/controllers/Navigation.js"></script>
+
+    <script src="/db/DB.js"></script>
+
+    <script src="/models/CustomerModel.js"></script>
+    <script src="/models/ItemModel.js"></script>
+    <script src="/models/OrderDetailsModel.js"></script>
+    <script src="/models/OrderModel.js"></script>
+
+</body>
+</html>

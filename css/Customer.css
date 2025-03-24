@@ -1,0 +1,149 @@
+  /* For Boostrap */
+
+  /* body {
+    font-family: Arial, sans-serif;
+  }
+  
+  #customerTable {
+    margin-top: 20px;
+  }
+  
+  .btn {
+    margin-right: 5px;
+  } */
+
+
+.main-content {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+.form-section {
+    flex: 0 0 46%; 
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #3498db;
+}
+
+.btn-primary:hover{
+    background-color: #0099ff;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+}
+
+.btn-danger:hover {
+    background-color: #ff1900;
+}
+
+.btn-warning {
+    background-color: #f4cd31;
+    color: #333;
+}
+
+.btn-warning:hover {
+    background-color: #ffcc00;
+    color: #202020;
+}
+
+.btn-success {
+    background-color: #2ecc71;
+}
+
+.btn-success:hover {
+    background-color: #00ff6a;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+}
+
+.btn-secondary:hover {
+    background-color: #979797;
+}
+
+.table-section {
+    position: relative;
+    left: 20px;
+    flex: 0 1 68%;
+    margin-left: 30px;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.customer-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.customer-table th {
+    background-color: #e74c3c;
+    color: #fff;
+    text-align: left;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.customer-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.customer-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        overflow: scroll;
+    }
+    
+    .form-section, .table-section {
+        flex: 0 0 100%;
+    }
+    
+    .navItems {
+        width: auto;
+    }
+}
