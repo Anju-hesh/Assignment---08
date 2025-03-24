@@ -63,7 +63,6 @@ label {
 
 .itemBtn-warning {
     background-color: #f4cd31;
-    color: #333;
 }
 
 .itemBtn-warning:hover {
@@ -87,12 +86,12 @@ label {
     background-color: #979797;
 }
 
-
 .item_table-section {
     position: relative;
-    left: 20px;
+    /* top: 20px; */
+    /* left: 20px; */
     flex: 0 1 68%;
-    margin-left: 30px;
+    /* margin-left: 30px; */
     max-height: 400px;
     overflow-y: scroll;
 }
@@ -117,4 +116,56 @@ label {
 
 .item-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
+}
+
+@media (max-width: 1024px) {
+
+    .item_content {
+        flex-wrap: wrap;
+    }
+
+    .item_form_section {
+        flex: 1 1 100%;
+    }
+
+    .item_table-section {
+        flex: 1 1 100%;
+        max-height: 300px; 
+    }
+}
+
+@media (max-width: 768px) {
+
+    .item_content {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .item-table th,
+    .item-table td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .item_content {
+        padding: 5px;
+        gap: 5px;
+    }
+
+    .item_table-section {
+        max-height: 200px; 
+    }
+
+    .item-table th,
+    .item-table td {
+        padding: 6px;
+        font-size: 14px;
+    }
+
+    .ItemBtn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
 }

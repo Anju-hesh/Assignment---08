@@ -150,18 +150,92 @@ label {
   border-bottom: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+
   .invoice-container {
-      flex-direction: column;
-      overflow: auto;
+    gap: 15px;
   }
-  
+
   .section {
-      min-width: 100%;
+    min-width: 100%; 
   }
-  
+
   .form-row {
-      flex-direction: column;
-      gap: 10px;
+    flex-direction: column; 
+    gap: 10px;
+  }
+
+  .total-section {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .ordeContainer {
+    margin: 30px 15px;
+  }
+
+  .invoice-container {
+    gap: 10px;
+  }
+
+  .section-header h2 {
+    font-size: 16px;
+  }
+
+  .form-control {
+    font-size: 13px;
+  }
+
+  .btn {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .total {
+    font-size: 22px;
+  }
+
+  .subtotal {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+ 
+  body{
+    overflow: scroll;
+  }
+  .ordeContainer {
+    margin: 20px 10px; 
+  }
+
+  .section-header h2 {
+    font-size: 14px;
+  }
+
+  .form-control {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  .btn {
+    padding: 5px 10px;
+    font-size: 12px; 
+  }
+
+  .total {
+    font-size: 20px;
+  }
+
+  .subtotal {
+    font-size: 16px;
+  }
+
+  .order-table th,
+  .order-table td {
+    padding: 8px 10px;
+    font-size: 12px;
   }
 }

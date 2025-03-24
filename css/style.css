@@ -1,9 +1,9 @@
-body {
+/* body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #fff;
-    overflow: hidden;
+    background-color: #b5b5b5;
+    
 }
 
 .header-bar {
@@ -55,4 +55,128 @@ h2 {
     color: #333;
     font-size: 24px;
     font-weight: normal;
+} */
+
+/* Existing CSS */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #b5b5b5;
+}
+
+.header-bar {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+.header-bar h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.navItems {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 5px 15px;
+}
+
+.navBar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navBar a {
+    color: #e74c3c;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 16px;
+}
+
+h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.burger-button {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.burger-icon {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #e74c3c;
+    position: relative;
+}
+
+.burger-icon::before,
+.burger-icon::after {
+    content: '';
+    width: 25px;
+    height: 3px;
+    background-color: #e74c3c;
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease;
+}
+
+.burger-icon::before {
+    top: -8px;
+}
+
+.burger-icon::after {
+    top: 8px;
+}
+
+@media (max-width: 768px) {
+    .burger-button {
+        display: block;
+    }
+
+    .navBar {
+        display: none;
+        flex-direction: column;
+        background-color: #fff;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 200px;
+        padding: 10px 0;
+    }
+
+    .navBar.active {
+        display: flex; 
+    }
+
+    .navBar a {
+        padding: 10px 20px;
+        text-align: center;
+        color: #007bff;
+        font-weight: bold;
+    }
 }

@@ -28,6 +28,9 @@
             <div class="container">
                 <h1> Home </h1>
                 <div class="navItems">
+                    <button class="burger-button" aria-label="Toggle navigation">
+                        <span class="burger-icon"></span>
+                    </button>
                     <nav class="navBar" id="homeNav">
                         <a href="#home_section">Home</a>
                         <a href="#customer_section">Customer</a>
@@ -71,6 +74,9 @@
             <div class="container">
                 <h1>Customer Manage</h1>
                 <div class="navItems">
+                    <button class="burger-button" aria-label="Toggle navigation">
+                        <span class="burger-icon"></span>
+                    </button>
                     <nav class="navBar" id="customerNav">
                         <a href="#home_section">Home</a>
                         <a href="#customer_section">Customer</a>
@@ -163,6 +169,9 @@
                 <div class="container">
                     <h1> Item Manage </h1>
                     <div class="navItems">
+                        <button class="burger-button" aria-label="Toggle navigation">
+                            <span class="burger-icon"></span>
+                        </button>
                         <nav class="navBar" id="itemNav">
                             <a href="#home_section">Home</a>
                             <a href="#customer_section">Customer</a>
@@ -258,6 +267,9 @@
                 <div class="container">
                     <h1> Order Manage </h1>
                     <div class="navItems">
+                        <button class="burger-button" aria-label="Toggle navigation">
+                            <span class="burger-icon"></span>
+                        </button>
                         <nav class="navBar" id="orderNav">
                             <a href="#home_section">Home</a>
                             <a href="#customer_section">Customer</a>
@@ -418,18 +430,59 @@
 
         <script>
            
+           // calander js part
+
             const dateInput = document.getElementById("date");
             const calendarIcon = document.getElementById("calendarIcon");
         
             const flatpickrInstance = flatpickr(dateInput, {
                 dateFormat: "m-d-Y", 
-                // defaultDate: "today",
+            
                 allowInput: true, 
             });
         
             calendarIcon.addEventListener("click", () => {
                 flatpickrInstance.open();
             });
+
+            // burger button js part
+            document.addEventListener('DOMContentLoaded', function () {
+                const burgerButtons = document.querySelectorAll('.burger-button');
+                const navBars = document.querySelectorAll('.navBar');
+
+                burgerButtons.forEach((burgerButton, index) => {
+                    burgerButton.addEventListener('click', function () {
+           
+                    navBars[index].classList.toggle('active');
+                });
+            });
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.navBar a');
+
+            function highlightActiveLink() {
+                let currentSection = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (window.scrollY >= sectionTop - sectionHeight / 3) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(currentSection)) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            highlightActiveLink();
+            window.addEventListener('scroll', highlightActiveLink);
+        });
             
         </script>
 
