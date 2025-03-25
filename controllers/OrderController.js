@@ -1,9 +1,19 @@
+let dashboardUpdaterOrder = {
+    orderCount: 0,
+    updateOrdersCount: function(count) {
+        this.orderCount = count;
+        $('.order-box .box-value').text(count);
+    }
+};
+
 $(document).ready(function () {
     let totalAmount = 0;
     let orderItems = [];
     let orders = [];
 
     generateOrderId();
+
+    dashboardUpdaterOrder.updateOrdersCount(Model.getAllOrders().length);
 
     function loadCustomers() {
         let cmb = $('#select-customer');
@@ -286,6 +296,8 @@ $(document).ready(function () {
                     Model.updateItem(updatedItem);
                 }
             });
+
+            dashboardUpdaterOrder.updateOrdersCount(Model.getAllOrders().length);
 
             alert("Order saved successfully!");
             clearForm();

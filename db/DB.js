@@ -142,7 +142,7 @@ class DB {
                 throw new Error("Invalid item object");
             }
             if (this.items.some(i => i.code === item.code)) {
-                return false; // Item code already exists
+                return false;
             }
             this.items.push(item);
             return true;
@@ -158,7 +158,7 @@ class DB {
             }
             const index = this.items.findIndex(i => i.code === item.code);
             if (index === -1) {
-                return false; // Item not found
+                return false; 
             }
             this.items[index] = item;
             return true;

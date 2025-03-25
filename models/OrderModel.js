@@ -46,4 +46,8 @@ class Model {
   static generateOrderId() {
     return DB.generateOrderId();
   }
+
+  static getAllOrders(){
+    return DB.getAllOrders();
+  }
 }

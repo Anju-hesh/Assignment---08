@@ -1,5 +1,15 @@
+let dashboardUpdater = {
+    customerCount: 0,
+    updateCustomerCount: function(count) {
+        this.customerCount = count;
+        $('.customer-box .box-value').text(count);
+    }
+};
+
 $(document).ready(function () {
     generateCustomerId();
+
+    dashboardUpdater.updateCustomerCount(CustomerModel.getAllCustomers().length);
 
     $("#saveCustomer").on("click", handleSaveCustomer);
     $("#removeCustomer").on("click", handleRemoveCustomer);
@@ -30,6 +40,9 @@ function handleSaveCustomer() {
         loadAllCustomers();
         clearCustomerForm();
         generateCustomerId();
+
+        dashboardUpdater.updateCustomerCount(CustomerModel.getAllCustomers().length);
+        
         alert("Customer saved successfully!");
     } else {
         alert("Customer ID already exists. Please use a unique ID.");
@@ -81,12 +94,15 @@ function handleCustomerSelection() {
 function handleRemoveCustomer() {
     const customerId = $("#customerId").val();
 
-    if (!confirm(`Are you sure you want to remove customer ${customerId}?`)) return;
+    if (!confirm(`Are you sure you want to remove customer ${customerId}..?`)) return;
 
     if (CustomerModel.deleteCustomer(customerId)) {
         loadAllCustomers();
         clearCustomerForm();
         generateCustomerId();
+
+        dashboardUpdater.updateCustomerCount(CustomerModel.getAllCustomers().length);
+        
         alert("Customer removed successfully!");
     } else {
         alert("Customer not found!");

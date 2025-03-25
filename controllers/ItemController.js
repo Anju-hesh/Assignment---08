@@ -1,5 +1,15 @@
+let dashboardUpdaterItem = {
+    itemCount: 0,
+    updateItemCount: function(count) {
+        this.itemCount = count;
+        $('.item-box .box-value').text(count);
+    }
+};
+
 $(document).ready(function () {
     generateItemCode();
+
+    dashboardUpdaterItem.updateItemCount(ItemModel.getAllItems().length);
 
     $("#addItem").on("click", addItem);
     $("#removeItem").on("click", removeItem);
@@ -30,6 +40,9 @@ function addItem() {
         loadAllItem();
         clearItemForm();
         generateItemCode();
+
+        dashboardUpdaterItem.updateItemCount(ItemModel.getAllItems().length);
+
         alert("Item saved successfully!");
     } else {
         alert("Item already exists. Please use a unique code.");
@@ -88,6 +101,9 @@ function removeItem() {
         loadAllItem();
         clearItemForm();
         generateItemCode();
+
+        dashboardUpdaterItem.updateItemCount(ItemModel.getAllItems().length);
+
         alert("Item removed successfully!");
     } else {
         alert("Item not found!");
