@@ -1,3 +1,5 @@
+
+
 function toggleSections() {
         
     const homeSection = document.getElementById("home_section");

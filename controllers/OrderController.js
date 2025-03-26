@@ -52,23 +52,35 @@ $(document).ready(function () {
     loadCustomers();
     loadItems();
 
-    $("#orderID").on("input", function () {
+
+    $("#orderID").on("input", function() {
         const orderId = $(this).val();
-
-        if (orderId) {
-            const existingOrder = orders.find(order => order.id === orderId);
-
-            if (existingOrder) {
-                $("#select-customer").prop("disabled", true);
-                $("#orderIdError").text("Order ID already exists. Customer selection is prohibited.");
-            } else {
-                $("#select-customer").prop("disabled", false);
-                $("#orderIdError").text("");
-            }
-        } else {
-            $("#select-customer").prop("disabled", false);
-            $("#orderIdError").text("");
+        const idRegex = /^OID-\d{3}$/;
+        let isValid = idRegex.test(orderId);
+        
+        $(this).removeClass("is-invalid is-valid");
+        $("#orderIdError").text("");
+        $("#select-customer").prop("disabled", false);
+    
+        if (orderId && !isValid) {
+            $(this).addClass("is-invalid");
+            $("#orderIdError").text("Order ID must be in format OID-001 (e.g., OID-001)");
+            return false;
         }
+        
+        if (orderId && isValid) {
+            $(this).addClass("is-valid");
+            const existingOrder = orders.find(order => order.id === orderId);
+            
+            if (existingOrder) {
+                $(this).removeClass("is-valid").addClass("is-invalid");
+                $("#orderIdError").text("Order ID already exists. Customer selection is prohibited.");
+                $("#select-customer").prop("disabled", true);
+                isValid = false;
+            }
+        }
+        
+        return isValid;
     });
 
     $("#select-customer").on("change", function () {
@@ -391,4 +403,6 @@ $(document).ready(function () {
         totalAmount = 0;
         updateTotalDisplay();
     }
+
+   
 });

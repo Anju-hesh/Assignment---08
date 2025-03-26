@@ -18,12 +18,19 @@ $(document).ready(function () {
     $("#clearItemForm").on("click", clearItemForm);
     $("#item_table_body").on("click", "tr", itemSelection);
 
+
+    $("#itemCode").on("input", validateItemCodeFormat);
+    $("#itemName").on("input", validateItemName);
+    $("#itemQty").on("input", validateItemQuantity);
+    $("#itemPrice").on("input", validateItemPrice);
+
     loadAllItem();
 });
 
 function generateItemCode() {
     const nextCode = ItemModel.generateItemCode();
     $("#itemCode").val(nextCode);
+    validateItemCodeFormat();
 }
 
 function addItem() {
@@ -141,35 +148,76 @@ function clearItemForm() {
 }
 
 function validateItemForm() {
-    let itemName = $("#itemName").val();
-    let itemQty = $("#itemQty").val();
-    let itemPrice = $("#itemPrice").val();
-
+    let isValid = true;
+    
+    isValid = validateItemName.call($("#itemName")[0]) && isValid;
+    isValid = validateItemQuantity.call($("#itemQty")[0]) && isValid;
+    isValid = validateItemPrice.call($("#itemPrice")[0]) && isValid;
+    
+    return isValid;
+}
+function validateItemName() {
+    const itemName = $(this).val();
     let isValid = true;
 
     if (!itemName) {
-        $("#itemNameError").text("Item Name is a required field. Minimum 5, maximum 20 characters. Spaces allowed.");
+        $(this).removeClass("is-valid").addClass("is-invalid");
+        $("#itemNameError").text("Item name is required (3-20 characters)");
         isValid = false;
-    } else if (itemName.length < 5 || itemName.length > 20) {
-        $("#itemNameError").text("Item Name must be between 5 and 20 characters.");
+    } else if (itemName.length < 3 || itemName.length > 20) {
+        $(this).removeClass("is-valid").addClass("is-invalid");
+        $("#itemNameError").text("Item name must be 3-20 characters long");
         isValid = false;
     } else {
+        $(this).removeClass("is-invalid").addClass("is-valid");
         $("#itemNameError").text("");
     }
 
-    if (!itemQty || isNaN(itemQty) || itemQty <= 0) {
-        $("#itemQtyError").text("Item Quantity is a required field and must be a positive number.");
-        isValid = false;
-    } else {
+    return isValid;
+}
+
+function validateItemQuantity() {
+    const itemQty = $(this).val();
+    const isValid = itemQty && !isNaN(itemQty) && itemQty > 0;
+
+    if (isValid) {
+        $(this).removeClass("is-invalid").addClass("is-valid");
         $("#itemQtyError").text("");
-    }
-
-    if (!itemPrice || isNaN(itemPrice) || itemPrice <= 0) {
-        $("#itemPriceError").text("Item Price is a required field and must be a positive number.");
-        isValid = false;
     } else {
-        $("#itemPriceError").text("");
+        $(this).removeClass("is-valid").addClass("is-invalid");
+        $("#itemQtyError").text("Quantity must be a positive number");
     }
 
+    return isValid;
+}
+
+function validateItemPrice() {
+    const itemPrice = $(this).val();
+    const isValid = itemPrice && !isNaN(itemPrice) && itemPrice > 0;
+
+    if (isValid) {
+        $(this).removeClass("is-invalid").addClass("is-valid");
+        $("#itemPriceError").text("");
+    } else {
+        $(this).removeClass("is-valid").addClass("is-invalid");
+        $("#itemPriceError").text("Price must be a positive number");
+    }
+
+    return isValid;
+}
+
+function validateItemCodeFormat(){
+    const itemCode = $("#itemCode").val();
+    const idRegex = /^I\d{2}-\d{3}$/;
+    const isValid = idRegex.test(itemCode);
+    
+    if (!isValid) {
+        $("#itemCode").addClass("is-invalid");
+        $("#itemCodeError").text("Item Code must be in format I00-001 (e.g., I00-001)");
+    } else {
+        $("#itemCode").removeClass("is-invalid");
+        $("#itemCodeError").text("");
+    }
+    
     return isValid;
 }

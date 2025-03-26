@@ -1,63 +1,4 @@
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #b5b5b5;
-    
-}
 
-.header-bar {
-    background-color: #007bff;
-    color: #fff;
-    padding: 15px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.error {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-    display: block;
-}
-
-.header-bar h1 {
-    margin: 0;
-    font-size: 24px;
-}
-
-.navItems {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 5px 15px;
-}
-
-.navBar {
-    display: flex;
-    justify-content: space-between;
-}
-
-.navBar a {
-    color: #e74c3c;
-    text-decoration: none;
-    padding: 10px 15px;
-    font-size: 16px;
-}
-
-h2 {
-    margin-top: 0;
-    color: #333;
-    font-size: 24px;
-    font-weight: normal;
-} */
-
-/* Existing CSS */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -149,6 +90,11 @@ h2 {
 
 .burger-icon::after {
     top: 8px;
+}
+
+.is-invalid {
+    border-color: #dc3545 ;
+    border-width: 4px;
 }
 
 @media (max-width: 768px) {

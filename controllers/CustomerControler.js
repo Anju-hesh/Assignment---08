@@ -18,12 +18,18 @@ $(document).ready(function () {
     $("#clearCustomerForm").on("click", clearCustomerForm);
     $("#table_body").on("click", "tr", handleCustomerSelection);
 
+    $("#customerId").on("input", validateCustomerIdFormat);
+    $("#customerName").on("input", function() { validateField($(this), "name"); });
+    $("#customerAddress").on("input", function() { validateField($(this), "address"); });
+    $("#customerSalary").on("input", function() { validateField($(this), "salary"); });
+
     loadAllCustomers();
 });
 
 function generateCustomerId() {
     const nextId = CustomerModel.generateCustomerId();
     $("#customerId").val(nextId);
+    validateCustomerIdFormat();
 }
 
 function handleSaveCustomer() {
@@ -33,7 +39,7 @@ function handleSaveCustomer() {
         id: $("#customerId").val(),
         name: $("#customerName").val(),
         address: $("#customerAddress").val(),
-        salary: parseFloat($("#customerSalary").val())
+        salary: parseFloat($("#customerSalary").val().replace(/,/g, ''))
     };
 
     if (CustomerModel.saveCustomer(customer)) {
@@ -43,9 +49,9 @@ function handleSaveCustomer() {
 
         dashboardUpdater.updateCustomerCount(CustomerModel.getAllCustomers().length);
         
-        alert("Customer saved successfully!");
+        Alert("success", "Customer saved successfully!");
     } else {
-        alert("Customer ID already exists. Please use a unique ID.");
+        Alert("error", "Customer ID already exists. Please use a unique ID.");
     }
 }
 
@@ -84,15 +90,25 @@ function handleCustomerSelection() {
     const customer = CustomerModel.findCustomer(customerId);
 
     if (customer) {
-        $("#customerId").val(customer.id);
-        $("#customerName").val(customer.name);
-        $("#customerAddress").val(customer.address);
-        $("#customerSalary").val(customer.salary);
+        $("#customerId").val(customer.id).removeClass("is-invalid");
+        $("#customerName").val(customer.name).removeClass("is-invalid");
+        $("#customerAddress").val(customer.address).removeClass("is-invalid");
+        $("#customerSalary").val(customer.salary.toFixed(2)).removeClass("is-invalid");
+        
+        $("#customerIdError").text("");
+        $("#customerNameError").text("");
+        $("#customerAddressError").text("");
+        $("#customerSalaryError").text("");
     }
 }
 
 function handleRemoveCustomer() {
     const customerId = $("#customerId").val();
+
+    if (!customerId) {
+        Alert("error", "Please select a customer first!");
+        return;
+    }
 
     if (!confirm(`Are you sure you want to remove customer ${customerId}..?`)) return;
 
@@ -103,14 +119,19 @@ function handleRemoveCustomer() {
 
         dashboardUpdater.updateCustomerCount(CustomerModel.getAllCustomers().length);
         
-        alert("Customer removed successfully!");
+        Alert("success", "Customer removed successfully!");
     } else {
-        alert("Customer not found!");
+        Alert("error", "Customer not found!");
     }
 }
 
 function handleUpdateCustomer() {
     const customerId = $("#customerId").val();
+
+    if (!customerId) {
+        showAlert("error", "Please select a customer first!");
+        return;
+    }
 
     if (!validateCustomerForm()) return;
 
@@ -118,53 +139,108 @@ function handleUpdateCustomer() {
         id: customerId,
         name: $("#customerName").val(),
         address: $("#customerAddress").val(),
-        salary: parseFloat($("#customerSalary").val())
+        salary: parseFloat($("#customerSalary").val().replace(/,/g, ''))
     };
 
     if (CustomerModel.updateCustomer(customer)) {
         loadAllCustomers();
         clearCustomerForm();
         generateCustomerId();
-        alert("Customer updated successfully!");
+        Alert("success", "Customer updated successfully!");
     } else {
-        alert("Customer not found!");
+        Alert("error", "Customer not found!");
     }
 }
 
 function clearCustomerForm() {
-    $("#customerId").val("");
-    $("#customerName").val("");
-    $("#customerAddress").val("");
-    $("#customerSalary").val("");
+    $("#customerId").val("").removeClass("is-invalid");
+    $("#customerName").val("").removeClass("is-invalid");
+    $("#customerAddress").val("").removeClass("is-invalid");
+    $("#customerSalary").val("").removeClass("is-invalid");
+    
+    $("#customerIdError").text("");
+    $("#customerNameError").text("");
+    $("#customerAddressError").text("");
+    $("#customerSalaryError").text("");
+    
     generateCustomerId();
 }
 
 function validateCustomerForm() {
-    let customerName = $("#customerName").val();
-    let customerAddress = $("#customerAddress").val();
-    let customerSalary = $("#customerSalary").val();
     let isValid = true;
+    
+    isValid = validateCustomerIdFormat() && isValid;
+    isValid = validateField($("#customerName"), "name") && isValid;
+    isValid = validateField($("#customerAddress"), "address") && isValid;
+    isValid = validateField($("#customerSalary"), "salary") && isValid;
+    
+    return isValid;
+}
 
-    if (!customerName) {
-        $("#customerNameError").text("Please enter the Customer Name");
-        isValid = false;
+function validateCustomerIdFormat() {
+    const customerId = $("#customerId").val();
+    const idRegex = /^C\d{2}-\d{3}$/;
+    const isValid = idRegex.test(customerId);
+    
+    if (!isValid) {
+        $("#customerId").addClass("is-invalid");
+        $("#customerIdError").text("Customer ID must be in format C00-001 (e.g., C00-001)");
     } else {
-        $("#customerNameError").text("");
+        $("#customerId").removeClass("is-invalid");
+        $("#customerIdError").text("");
     }
+    
+    return isValid;
+}
 
-    if (!customerAddress) {
-        $("#customerAddressError").text("Please enter the Customer Address");
-        isValid = false;
+function validateField(field, fieldType) {
+    const value = field.val();
+    let isValid = true;
+    let errorMessage = "";
+    
+    switch (fieldType) {
+        case "name":
+            if (!value) {
+                errorMessage = "Please enter the Customer Name";
+                isValid = false;
+            } else if (value.length < 3) {
+                errorMessage = "Name must be at least 3 characters";
+                isValid = false;
+            } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+                errorMessage = "Name can only contain letters and spaces";
+                isValid = false;
+            }
+            break;
+            
+        case "address":
+            if (!value) {
+                errorMessage = "Please enter the Customer Address";
+                isValid = false;
+            } else if (value.length < 5) {
+                errorMessage = "Address must be at least 5 characters";
+                isValid = false;
+            }
+            break;
+            
+        case "salary":
+            const salaryValue = value.replace(/,/g, '');
+            if (!value) {
+                errorMessage = "Please enter the Customer Salary";
+                isValid = false;
+            } else if (isNaN(salaryValue) || parseFloat(salaryValue) <= 0) {
+                errorMessage = "Salary must be a positive number";
+                isValid = false;
+            }
+            break;
+    }
+    
+    if (!isValid) {
+        field.addClass("is-invalid");
+        $(`#customer${fieldType.charAt(0).toUpperCase() + fieldType.slice(1)}Error`).text(errorMessage); // Error eka customis kirimak kara 
     } else {
-        $("#customerAddressError").text("");
+        field.removeClass("is-invalid");
+        $(`#customer${fieldType.charAt(0).toUpperCase() + fieldType.slice(1)}Error`).text("");
     }
-
-    if (!customerSalary) {
-        $("#customerSalaryError").text("Please enter the Customer Salary");
-        isValid = false;
-    } else {
-        $("#customerSalaryError").text("");
-    }
-
+    
     return isValid;
 }

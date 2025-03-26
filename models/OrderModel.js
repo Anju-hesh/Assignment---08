@@ -1,19 +1,3 @@
-
-// class OrderModel {
-//   static generateOrderId() {
-//     return DB.generateOrderId();
-//   }
-
-//   static getAllOrders() {
-//     return DB.getAllOrders();
-//   }
-
-//   static saveOrder(order){
-//     return DB.saveOrder(order);
-//   }
-// }
-
-
 class Model {
   static getAllCustomers() {
     return DB.getAllCustomers();

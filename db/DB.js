@@ -58,21 +58,37 @@ class DB {
  
     static generateOrderId() {
         if (this.orders.length === 0) {
-            return "O001";
+            return "OID-001";
         }
         const lastId = this.orders[this.orders.length - 1].id;
-        const lastNum = parseInt(lastId.substring(1));
-        return "O" + String(lastNum + 1).padStart(3, "0");
+        const lastNum = parseInt(lastId.substring(4));
+        return "OID-" + String(lastNum + 1).padStart(3, "0");
     }
+
+
+    // static generateOrderId(){
+    //     if (this.orders.length === 0) {
+    //         return "O00-001";
+    //     }
+    //     const lastId = this.orders[this.orders.length - 1].id;
+        
+    //     const parts = lastOrderId.split('-');
+    //     const lastNum = parseInt(parts[1]);
+    
+    //     const newNum = lastNum + 1;
+    //     const paddedNum = String(newNum).padStart(3, '0');
+
+    //     return `O00-${paddedNum}`;
+    // }
 
     // =================================================== Customer  Functions ==============================================
    
         // static customers = [];
 
         static customers = [
-            { id: "C001", name: "Anjana Heshan", address: "Elpitiya", salary: 400000 },
-            { id: "C002", name: "Tharusha Sandaruwan", address: "Ella", salary: 500000 },
-            { id: "C003", name: "Chathura Lakshan", address: "Kurudugaha", salary: 450000 }
+            { id: "C00-001", name: "Anjana Heshan", address: "Elpitiya", salary: 400000 },
+            { id: "C00-002", name: "Tharusha Sandaruwan", address: "Ella", salary: 500000 },
+            { id: "C00-003", name: "Chathura Lakshan", address: "Kurudugaha", salary: 450000 }
         ];
     
        
@@ -116,21 +132,38 @@ class DB {
 
         static generateCustomerId() {
             if (this.customers.length === 0) {
-                return "C001";
+                return "C00-001";
             }
             const lastId = this.customers[this.customers.length - 1].id;
-            const lastNum = parseInt(lastId.substring(1));
-            return "C" + String(lastNum + 1).padStart(3, "0");
+            const lastNum = parseInt(lastId.substring(4));
+            return "C00-" + String(lastNum + 1).padStart(3, "0");
         }
+
+        // static generateCustomerId() {
+            
+        //     if (this.customers.length === 0) {
+        //         return "C00-001";
+        //     }
+        
+        //     const lastId = this.customers[this.customers.length - 1].id;
+        
+        //     const parts = lastId.split('-');
+        //     const lastNum = parseInt(parts[1]);
+        
+        //     const newNum = lastNum + 1;
+        //     const paddedNum = String(newNum).padStart(3, '0');
+
+        //     return `C00-${paddedNum}`;
+        // }
 
     // ========================================================= Item Functions ===================================================
     
         // static items = [];
 
         static items = [
-            { code: "I001", name: "Apple", qty: 500, price: 100.00 },
-            { code: "I002", name: "Banana", qty: 250, price: 50.00 },
-            { code: "I003", name: "Orange", qty: 300, price: 75.00 }
+            { code: "I00-001", name: "Apple", qty: 500, price: 100.00 },
+            { code: "I00-002", name: "Banana", qty: 250, price: 50.00 },
+            { code: "I00-003", name: "Orange", qty: 300, price: 75.00 }
         ];
 
         static getAllItems() {
@@ -172,10 +205,25 @@ class DB {
     
         static generateItemCode() {
             if (this.items.length === 0) {
-                return "I001";
+                return "I00-001";
             }
             const lastItem = this.items[this.items.length - 1].code;
-            const lastNum = parseInt(lastItem.substring(1));
-            return "I" + String(lastNum + 1).padStart(3, "0");
+            const lastNum = parseInt(lastItem.substring(4));
+            return "I00-" + String(lastNum + 1).padStart(3, "0");
         }
+
+        // static generateItemCode(){
+        //     if (this.items.length === 0) {
+        //         return "I00-001";
+        //     }
+        //     const lastItem = this.items[this.items.length - 1].code;
+            
+        //     const parts = lastItem.split('-');
+        //     const lastNum = parseInt(parts[1]);
+        
+        //     const newNum = lastNum + 1;
+        //     const paddedNum = String(newNum).padStart(3, '0');
+
+        //     return `I00-${paddedNum}`;
+        // }
 }
