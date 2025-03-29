@@ -289,36 +289,6 @@ $(document).ready(function () {
             balance: balance
         };
 
-        // try {
-        //     const isSaved = Model.saveOrder(order);
-        //     if (!isSaved) {
-        //         alert("Failed to save order. Please try again.");
-        //         return;
-        //     }
-
-        //     orders.push(order);
-
-        //     orderItems.forEach(item => {
-        //         const itemInDB = Model.findItem(item.code);
-        //         if (itemInDB) {
-        //             const updatedItem = {
-        //                 ...itemInDB,
-        //                 qty: itemInDB.qty - item.qty
-        //             };
-        //             Model.updateItem(updatedItem);
-        //         }
-        //     });
-
-        //     dashboardUpdaterOrder.updateOrdersCount(Model.getAllOrders().length);
-
-        //     alert("Order saved successfully!");
-        //     clearForm();
-        // } catch (error) {
-        //     console.error("Error saving order:", error);
-        //     alert("An error occurred while saving the order. Please try again.");
-        // }
-
-
         try {
             const isSaved = Model.saveOrder(order);
             if (!isSaved) {
@@ -349,6 +319,8 @@ $(document).ready(function () {
             
             orders.push(order);
             alert("Order saved successfully!");
+           
+            dashboardUpdaterOrder.updateOrdersCount(Model.getAllOrders().length);
             loadAllItem();
             clearForm();
             
