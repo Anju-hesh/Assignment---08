@@ -289,35 +289,95 @@ $(document).ready(function () {
             balance: balance
         };
 
+        // try {
+        //     const isSaved = Model.saveOrder(order);
+        //     if (!isSaved) {
+        //         alert("Failed to save order. Please try again.");
+        //         return;
+        //     }
+
+        //     orders.push(order);
+
+        //     orderItems.forEach(item => {
+        //         const itemInDB = Model.findItem(item.code);
+        //         if (itemInDB) {
+        //             const updatedItem = {
+        //                 ...itemInDB,
+        //                 qty: itemInDB.qty - item.qty
+        //             };
+        //             Model.updateItem(updatedItem);
+        //         }
+        //     });
+
+        //     dashboardUpdaterOrder.updateOrdersCount(Model.getAllOrders().length);
+
+        //     alert("Order saved successfully!");
+        //     clearForm();
+        // } catch (error) {
+        //     console.error("Error saving order:", error);
+        //     alert("An error occurred while saving the order. Please try again.");
+        // }
+
+
         try {
             const isSaved = Model.saveOrder(order);
             if (!isSaved) {
-                alert("Failed to save order. Please try again.");
-                return;
+                throw new Error("Failed to save order");
             }
-
-            orders.push(order);
-
-            orderItems.forEach(item => {
+            
+            for (const item of orderItems) {
                 const itemInDB = Model.findItem(item.code);
-                if (itemInDB) {
-                    const updatedItem = {
-                        ...itemInDB,
-                        qty: itemInDB.qty - item.qty
-                    };
-                    Model.updateItem(updatedItem);
+                if (!itemInDB) {
+                    console.warn(`Item ${item.code} not found in database`);
+                    continue;
                 }
-            });
-
-            dashboardUpdaterOrder.updateOrdersCount(Model.getAllOrders().length);
-
+                
+                if (itemInDB.qty < item.qty) {
+                    throw new Error(`Insufficient quantity for item ${item.code}`);
+                }
+                
+                const updatedItem = {
+                    ...itemInDB,
+                    qty: itemInDB.qty - item.qty
+                };
+                
+                const isUpdated = ItemModel.updateItem(updatedItem);
+                if (!isUpdated) {
+                    throw new Error(`Failed to update item ${item.code}`);
+                }
+            }
+            
+            orders.push(order);
             alert("Order saved successfully!");
+            loadAllItem();
             clearForm();
+            
         } catch (error) {
-            console.error("Error saving order:", error);
-            alert("An error occurred while saving the order. Please try again.");
+            console.error("Order processing failed:", error);
+            alert(`Error: ${error.message}. Please try again.`);
         }
-    });
+
+
+
+        
+    function loadAllItem() {
+        let itemTable = $("#item_table_body");
+        itemTable.empty();
+
+        let items = ItemModel.getAllItems();
+
+        items.forEach(item => {
+            itemTable.append(`
+                <tr data-id="${item.code}">
+                    <td>${item.code}</td>
+                    <td>${item.name}</td>
+                    <td>${item.qty}</td>
+                    <td>${item.price.toFixed(2)}</td>
+                </tr>
+            `);
+        });
+    }
+});
 
     function clearForm() {
         clearCustomerFields();

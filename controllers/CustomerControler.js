@@ -49,9 +49,9 @@ function handleSaveCustomer() {
 
         dashboardUpdater.updateCustomerCount(CustomerModel.getAllCustomers().length);
         
-        Alert("success", "Customer saved successfully!");
+        alert("success", "Customer saved successfully!");
     } else {
-        Alert("error", "Customer ID already exists. Please use a unique ID.");
+        alert("error", "Customer ID already exists. Please use a unique ID.");
     }
 }
 
@@ -106,7 +106,7 @@ function handleRemoveCustomer() {
     const customerId = $("#customerId").val();
 
     if (!customerId) {
-        Alert("error", "Please select a customer first!");
+        alert("error", "Please select a customer first!");
         return;
     }
 
@@ -119,9 +119,9 @@ function handleRemoveCustomer() {
 
         dashboardUpdater.updateCustomerCount(CustomerModel.getAllCustomers().length);
         
-        Alert("success", "Customer removed successfully!");
+        alert("success", "Customer removed successfully!");
     } else {
-        Alert("error", "Customer not found!");
+        alert("error", "Customer not found!");
     }
 }
 
@@ -146,9 +146,9 @@ function handleUpdateCustomer() {
         loadAllCustomers();
         clearCustomerForm();
         generateCustomerId();
-        Alert("success", "Customer updated successfully!");
+        alert("success", "Customer updated successfully!");
     } else {
-        Alert("error", "Customer not found!");
+        alert("error", "Customer not found!");
     }
 }
 
