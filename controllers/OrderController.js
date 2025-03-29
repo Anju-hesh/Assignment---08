@@ -65,6 +65,7 @@ $(document).ready(function () {
         if (orderId && !isValid) {
             $(this).addClass("is-invalid");
             $("#orderIdError").text("Order ID must be in format OID-001 (e.g., OID-001)");
+            clearCustomerFields();
             return false;
         }
         
@@ -76,6 +77,7 @@ $(document).ready(function () {
                 $(this).removeClass("is-valid").addClass("is-invalid");
                 $("#orderIdError").text("Order ID already exists. Customer selection is prohibited.");
                 $("#select-customer").prop("disabled", true);
+                // clearCustomerFields();
                 isValid = false;
             }
         }
@@ -124,6 +126,7 @@ $(document).ready(function () {
     });
 
     function clearCustomerFields() {
+        $("#select-customer").val("");
         $("#Oreder_customerID").val("");
         $("#oreder_customerName").val("");
         $("#order_customerSalary").val("");
@@ -131,11 +134,39 @@ $(document).ready(function () {
     }
 
     function clearItemFields() {
+        $("#select-item").val("");
         $("#order_itemCode").val("");
         $("#order_itemName").val("");
         $("#order_qtyOnHand").val("");
         $("#order_itemPrice").val("");
         $("#orderQuantity").val("");
+    }
+
+
+    $("#orderQuantity").on("input" , checkQty);
+
+    function checkQty(){
+        const itemCode = $("#order_itemCode").val();
+        const itemQty = parseFloat($("#orderQuantity").val());
+        const itemInDB = Model.findItem(itemCode);
+
+        if (!itemInDB) {
+            alert("Item not found in the database!");
+            return;
+        }
+
+        if (itemQty > itemInDB.qty) {
+            $("#orderQuantityError").text(`Insufficient quantity! Only ${itemInDB.qty} items available.`);
+            $("#orderQuantity").addClass("is-invalid");
+            return;
+        } else if (!Number.isInteger(itemQty)) { 
+            $("#orderQuantityError").text("Quantity must be a whole number.");
+            $("#orderQuantity").addClass("is-invalid");
+            return;
+        } else {
+            $("#orderQuantityError").text("");
+            $("#orderQuantity").removeClass("is-invalid");
+        }
     }
 
     $("#addItemBtn").on("click", function () {
@@ -151,17 +182,20 @@ $(document).ready(function () {
         }
 
         const itemInDB = Model.findItem(itemCode);
-        if (!itemInDB) {
-            alert("Item not found in the database!");
-            return;
-        }
+        // if (!itemInDB) {
+        //     alert("Item not found in the database!");
+        //     return;
+        // }
 
-        if (itemQty > itemInDB.qty) {
-            $("#orderQuantityError").text(`Insufficient quantity! Only ${itemInDB.qty} items available.`);
-            return;
-        } else {
-            $("#orderQuantityError").text("");
-        }
+        // if (itemQty > itemInDB.qty) {
+        //     $("#orderQuantityError").text(`Insufficient quantity! Only ${itemInDB.qty} items available.`);
+        //     return;
+        // } else if (!Number.isInteger(itemQty)) { 
+        //     $("#orderQuantityError").text("Quantity must be a whole number.");
+        //     return;
+        // } else {
+        //     $("#orderQuantityError").text("");
+        // }
 
         const existingItemIndex = orderItems.findIndex(item => item.code === itemCode);
 
@@ -170,8 +204,10 @@ $(document).ready(function () {
             const newQty = existingItem.qty + itemQty;
 
             if (newQty > itemInDB.qty) {
-                $("#orderQuantityError").text(`Insufficient quantity! Only ${itemInDB.qty} items available.`);
-                return;
+                // $("#orderQuantityError").text(`Insufficient quantity! Only ${itemInDB.qty} items available.`);
+                // return;
+
+                checkQty();
             }
 
             orderItems[existingItemIndex].qty = newQty;
@@ -211,6 +247,8 @@ $(document).ready(function () {
 
     function updateTotalDisplay() {
         $("#total").text(totalAmount.toFixed(2));
+        $("#subtotal").text(totalAmount.toFixed(2));
+        // calculateSubtotalAndBalance();
     }
 
     function calculateSubtotalAndBalance() {
@@ -221,7 +259,20 @@ $(document).ready(function () {
         const balance = cash - subtotal;
 
         $("#subtotal").text(subtotal.toFixed(2));
-        $("#balance").val(balance.toFixed(2));
+
+        if(cash && Number.isInteger(cash) && cash > subtotal){
+            $("#balance").val(balance.toFixed(2));
+            $("#cashError").text("");
+        }else if ( cash < 0  ){
+            $("#cashError").text("Cash Should be a possitive Value ...!");
+        }else if( cash.empty || cash < subtotal ){
+            $("#cashError").text("Need More Cash ...!");
+        }
+        else{
+            $("#balance").val("");
+            $("#cashError").text("");
+        }
+        // $("#subtotal").text(subtotal.toFixed(2));
     }
 
     $("#cash, #discount").on("input", function () {
@@ -390,6 +441,7 @@ $(document).ready(function () {
             } else {
                 $("#orderIdError").text("Order not found!");
                 clearOrderTable();
+                clearCustomerFields();
             }
         }
     });
