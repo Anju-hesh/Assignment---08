@@ -7,6 +7,23 @@ let dashboardUpdaterOrder = {
 };
 
 $(document).ready(function () {
+ 
+           // calander js part
+
+           const dateInput = document.getElementById("date");
+            const calendarIcon = document.getElementById("calendarIcon");
+
+            const flatpickrInstance = flatpickr(dateInput, {
+                dateFormat: "m-d-Y",  
+                allowInput: true, 
+                defaultDate: new Date()
+            });
+
+        calendarIcon.addEventListener("click", () => {
+            flatpickrInstance.open();
+        });
+
+
     let totalAmount = 0;
     let orderItems = [];
     let orders = [];
@@ -465,6 +482,7 @@ $(document).ready(function () {
 
         const customer = Model.findCustomer(order.customerID);
         if (customer) {
+            $("#date").val(order.date);
             $("#Oreder_customerID").val(customer.id);
             $("#oreder_customerName").val(customer.name);
             $("#order_customerSalary").val(customer.salary);
